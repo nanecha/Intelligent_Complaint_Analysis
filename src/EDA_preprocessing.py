@@ -34,27 +34,23 @@ def load_and_process_complaints(file_path, chunksize=100000):
         print(f'🔄 Processing chunk {i+1}...')
 
         # Clean column names
-        chunk.columns = chunk.columns.str.strip()
+    chunk.columns = chunk.columns.str.strip()
 
         # Update total row count
-        total_raw += len(chunk)
+    total_raw += len(chunk)
 
         # Select and rename relevant columns
-        try:
-            chunk = chunk[['Complaint ID', 'Product',
-                           'Consumer complaint narrative']].copy()
-        except KeyError as e:
-            print(f"❌ Missing expected column in chunk {i+1}: {e}")
-            continue
+    chunk = chunk[['Complaint ID', 'Product',
+                       'Consumer complaint narrative']].copy()
 
-        chunk.columns = ['complaint_id', 'product', 'narrative']
+    chunk.columns = ['complaint_id', 'product', 'narrative']
 
         # Update narrative counts
-        total_with_narrative += chunk['narrative'].notna().sum()
-        total_without_narrative += chunk['narrative'].isna().sum()
+    total_with_narrative += chunk['narrative'].notna().sum()
+    total_without_narrative += chunk['narrative'].isna().sum()
 
         # Append cleaned chunk
-        df = pd.concat([df, chunk], ignore_index=True)
+    df = pd.concat([df, chunk], ignore_index=True)
 
     # Return the final DataFrame and summary info
     summary = {
