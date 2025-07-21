@@ -1,19 +1,26 @@
 import pandas as pd
-from langchain.docstore.document import Document
 import uuid
+from langchain.docstore.document import Document
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 
 def chunk_cleaned_complaints_to_documents(df, text_splitter, batch_size=1000):
     """
-    Process a DatacleqFrame of complaints to create chunked Document objects with metadata.
+    Process a DataFrame of complaints to create chunked Document 
+    objects with metadata.
+
     Args:
-        df (pandas.DataFrame): DataFrame containing complaint data with 'cleaned_narrative', 
-                              'product', and optionally 'Complaint ID' columns.
-        text_splitter (langchain.text_splitter.RecursiveCharacterTextSplitter):
-        Text splitter for chunking narratives.batch_size (int): Number of rows to process per batch.
+        df (pandas.DataFrame): DataFrame containing complaint data 
+                               with 'cleaned_narrative', 
+                               'product', and optionally, 
+                               'Complaint ID' columns.
+        text_splitter (RecursiveCharacterTextSplitter): 
+            Text splitter for chunking narratives.
+        batch_size (int): Number of rows to process per batch.
 
     Returns:
-        list: List of langchain Document objects with chunked narratives and metadata.
+        list: List of langchain Document objects with chunked
+              narratives and metadata.
     """
     documents = []
     for start_idx in range(0, len(df), batch_size):
@@ -40,11 +47,7 @@ def chunk_cleaned_complaints_to_documents(df, text_splitter, batch_size=1000):
                     documents.append(doc)
             except Exception as e:
                 print(f"Error processing row {idx}: {e}")
-        print(
-            f"Processed batch {start_idx // batch_size + 1}: {len(documents)} chunks so far")
+        #print(
+           # f"Processed batch {start_idx // batch_size + 1}: 
+           # {len(documents)} chunks so far")
     return documents
-
-
-# Example usage
-if __name__ == "__main__":
-    pass
