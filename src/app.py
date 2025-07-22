@@ -6,10 +6,12 @@ from sentence_transformers import SentenceTransformer
 from transformers import pipeline
 import pickle
 
-def run_rag_pipeline(vector_store_path='vector_store', question=None, k=5, 
+
+def run_rag_pipeline( VECTOR_STORE_FILE, question=None, k=5, 
                      llm_model='google/flan-t5-base'):
     """
-    Run the RAG pipeline: retrieve relevant complaint chunks and generate an answer.
+    Run the RAG pipeline: retrieve relevant complaint 
+    chunks and generate an answer.
     
     Args:
         vector_store_path (str): Directory containing the FAISS vector store and embedding model
@@ -21,9 +23,8 @@ def run_rag_pipeline(vector_store_path='vector_store', question=None, k=5,
         dict: Contains answer and retrieved documents
     """
     # Set up paths
-    VECTOR_STORE_PATH = Path(vector_store_path)
-    VECTOR_STORE_FILE = VECTOR_STORE_PATH / 'faiss_index'
-    EMBEDDING_MODEL_FILE = VECTOR_STORE_PATH / 'embedding_model.pkl'
+    VECTOR_STORE_FILE = 'F:/Intelligent_Complaint_Analysis/data/faiss_index'
+    EMBEDDING_MODEL_FILE = 'F:/Intelligent_Complaint_Analysis/data/embedding_model.pkl'
 
     # Load embedding model
     print("Loading embedding model...")
@@ -74,9 +75,11 @@ Answer:
         'retrieved_docs': retrieved_docs
     }
 
+
 def chat_interface(question, history):
     """
-    Gradio chat interface function to handle user questions and display answers with sources.
+    Gradio chat interface function to handle user questions 
+    and display answers with sources.
     
     Args:
         question (str): User's question
@@ -102,6 +105,7 @@ def chat_interface(question, history):
     history.append((question, f"{answer}\n\n**Retrieved Sources**:\n{sources}"))
     
     return answer, sources, history
+
 
 def clear_conversation():
     """
@@ -150,4 +154,6 @@ with gr.Blocks(title="CrediTrust Complaint Analyzer") as demo:
 
 # Launch the app
 if __name__ == "__main__":
-    demo.launch()
+    pass
+
+    #demo.launch()
