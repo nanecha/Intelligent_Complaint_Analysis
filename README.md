@@ -130,3 +130,32 @@ Results are stored in a DataFrame and can be saved to CSV.
 
 evaluation_results.csv: Structured responses, retrieved source summaries, and placeholder quality scores.
 
+# CrediTrust Complaint Analyzer (Task 4)
+
+This project provides an interactive chatbot interface that allows users to query customer complaints using a Retrieval-Augmented Generation (RAG) pipeline built with FAISS, Sentence Transformers, and Hugging Face Transformers. The app is hosted with Gradio and is tailored for exploring customer complaint data from the CFPB dataset.
+
+---
+
+## 🔧 Installation
+
+Before running the app, install all required dependencies:
+
+pip install gradio pandas langchain langchain-community sentence-transformers faiss-cpu transformers torch
+
+
+## 🚀 Running the Application
+- On Google Colab:
+- Upload the vector_store.zip:
+
+-from google.colab import files
+-uploaded = files.upload()
+-!unzip vector_store.zip -d /content/
+-Run the chatbot app using:
+## 🤖 How It Works
+ - Vector Store: Uses FAISS to store chunk embeddings of customer complaints.
+
+-  Embedding Model: Uses SentenceTransformer to embed both questions and complaint texts.
+
+- LLM: Uses google/flan-t5-base from Hugging Face Transformers for response generation.
+
+- Interface: Gradio-based chat app to interact with the system.
